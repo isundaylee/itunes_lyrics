@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+class LyricsRetriever
+
+	def self.retrieve_lyrics(path)
+
+		require 'taglib'
+
+		# TagLib::MPEG::File.open(path) do |f|
+		# 	tag = f.id3v2_tag
+		# 	tag.frame_list('TRCK').first
+		# end
+
+		if File.extname(path) == '.mp3'
+
+			TagLib::MPEG::File.open(path) do |f|
+				tag = f.id3v2_tag
+
+				return tag.frame_list('USLT').first.to_s
+			end
+
+		else
+
+			TagLib::MP4::File.open(path) do |f|
+
+				puts f.tag.item_list_map['©lyr'].to_string_list[0]
+
+			end
+
+		end
+
+	end
+
+end
+
+path = `osascript get_path.scpt`.strip
+exit if path.empty?
+lyrics = LyricsRetriever.retrieve_lyrics(path)
+puts lyrics
