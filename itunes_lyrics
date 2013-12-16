@@ -70,8 +70,8 @@ class LyricsMenubar
 	def init_status_bar(menu)
 	  status_bar = NSStatusBar.systemStatusBar
 	  status_item = status_bar.statusItemWithLength(NSVariableStatusItemLength)
-	  status_item.setMenu menu 
-	  status_item.setTitle "歌词"
+	  status_item.setMenu menu
+	  status_item.setTitle "词"
 
 	  @status_item = status_item
 	end
